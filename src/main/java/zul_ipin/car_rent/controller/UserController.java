@@ -38,7 +38,7 @@ public class UserController {
         userService.delete(id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/topup/{id}")
     public User topUp(@PathVariable Integer id, @RequestBody User request){
         return userService.topUp(id, request);
     }
