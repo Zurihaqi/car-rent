@@ -1,6 +1,7 @@
 package zul_ipin.car_rent.utils.DTO;
 
 import lombok.*;
+import zul_ipin.car_rent.model.Rent;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,4 +13,5 @@ public class CarDTO {
     private String name;
     private Boolean available;
     private Integer price;
+    private Rent rent;
 }

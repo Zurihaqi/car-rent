@@ -25,7 +25,4 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
-
-    //@OneToMany(mappedBy = "rent")
-    //private List<Rent> rents = new ArrayList<>();
 }
