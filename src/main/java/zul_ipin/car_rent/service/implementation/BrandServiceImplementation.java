@@ -1,12 +1,14 @@
 package zul_ipin.car_rent.service.implementation;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import zul_ipin.car_rent.model.Brand;
 import zul_ipin.car_rent.repository.BrandRepository;
 import zul_ipin.car_rent.service.BrandService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,8 +21,8 @@ public class BrandServiceImplementation implements BrandService {
     }
 
     @Override
-    public List<Brand> getAll(){
-        return brandRepository.findAll();
+    public Page<Brand> getAll(Pageable pageable){
+        return brandRepository.findAll(pageable);
     }
 
     @Override

@@ -1,9 +1,16 @@
 package zul_ipin.car_rent.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zul_ipin.car_rent.model.Brand;
 import zul_ipin.car_rent.service.BrandService;
+import zul_ipin.car_rent.utils.PageResponWrapper;
+import zul_ipin.car_rent.utils.Res;
 
 import java.util.List;
 
@@ -19,8 +26,16 @@ public class BrandController {
     }
 
     @GetMapping
-    public List<Brand> getAll(){
-        return brandService.getAll();
+    public ResponseEntity<?> getAll(
+            @PageableDefault(size = 10) Pageable pageable
+    ) {
+        Page<Brand> res = brandService.getAll(pageable);
+        PageResponWrapper<Brand> result = new PageResponWrapper(res);
+        return Res.renderJson(
+                result,
+                "Data Found!",
+                HttpStatus.OK
+        );
     }
 
     @GetMapping("/{id}")

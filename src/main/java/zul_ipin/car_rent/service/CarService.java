@@ -1,7 +1,6 @@
 package zul_ipin.car_rent.service;
 
 import zul_ipin.car_rent.model.Car;
-import zul_ipin.car_rent.model.User;
 import zul_ipin.car_rent.utils.DTO.CarDTO;
 
 import java.util.List;

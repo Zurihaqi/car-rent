@@ -1,10 +1,8 @@
 package zul_ipin.car_rent.utils.DTO;
 
 import lombok.*;
-import zul_ipin.car_rent.model.Rent;
 
 import java.util.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor

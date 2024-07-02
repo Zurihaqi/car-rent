@@ -9,13 +9,10 @@ import zul_ipin.car_rent.repository.RentRepository;
 import zul_ipin.car_rent.service.CarService;
 import zul_ipin.car_rent.service.RentService;
 import zul_ipin.car_rent.service.UserService;
-import zul_ipin.car_rent.utils.DTO.CarDTO;
 import zul_ipin.car_rent.utils.DTO.RentDTO;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Service
