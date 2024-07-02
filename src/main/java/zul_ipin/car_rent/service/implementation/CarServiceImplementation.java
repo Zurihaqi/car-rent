@@ -8,8 +8,8 @@ import zul_ipin.car_rent.repository.CarRepository;
 import zul_ipin.car_rent.service.BrandService;
 import zul_ipin.car_rent.service.CarService;
 import zul_ipin.car_rent.utils.DTO.CarDTO;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +30,8 @@ public class CarServiceImplementation implements CarService {
     }
 
     @Override
-    public List<Car> getAll() {
-        return carRepository.findAll();
+    public Page<Car> getAll(Pageable pageable) {
+        return carRepository.findAll(pageable);
     }
 
     @Override

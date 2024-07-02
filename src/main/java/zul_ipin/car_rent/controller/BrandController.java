@@ -30,7 +30,7 @@ public class BrandController {
             @PageableDefault(size = 10) Pageable pageable
     ) {
         Page<Brand> res = brandService.getAll(pageable);
-        PageResponWrapper<Brand> result = new PageResponWrapper(res);
+        PageResponWrapper<Brand> result = new PageResponWrapper<>(res);
         return Res.renderJson(
                 result,
                 "Data Found!",

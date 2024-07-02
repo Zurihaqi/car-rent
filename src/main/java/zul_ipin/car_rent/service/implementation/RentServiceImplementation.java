@@ -12,7 +12,8 @@ import zul_ipin.car_rent.service.UserService;
 import zul_ipin.car_rent.utils.DTO.RentDTO;
 
 import java.util.Date;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -53,8 +54,8 @@ public class RentServiceImplementation implements RentService {
     }
 
     @Override
-    public List<Rent> getAll() {
-        return rentRepository.findAll();
+    public Page<Rent> getAll(Pageable pageable) {
+        return rentRepository.findAll(pageable);
     }
 
     @Override

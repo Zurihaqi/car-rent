@@ -1,12 +1,12 @@
 package zul_ipin.car_rent.service;
 
 import zul_ipin.car_rent.model.User;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
     User create(User request);
-    List<User> getAll();
+    Page<User> getAll(Pageable pageable);
     User getOne(Integer id);
     User update(Integer id, User request);
     void delete(Integer id);

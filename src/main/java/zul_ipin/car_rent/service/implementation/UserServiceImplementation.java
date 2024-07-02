@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import zul_ipin.car_rent.model.User;
 import zul_ipin.car_rent.repository.UserRepository;
 import zul_ipin.car_rent.service.UserService;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
@@ -19,8 +19,8 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public Page<User> getAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override
