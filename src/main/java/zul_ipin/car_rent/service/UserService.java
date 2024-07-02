@@ -10,4 +10,5 @@ public interface UserService {
     User getOne(Integer id);
     User update(Integer id, User request);
     void delete(Integer id);
+    User topUp(Integer id, User request);
 }
