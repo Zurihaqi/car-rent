@@ -1,6 +1,7 @@
 package zul_ipin.car_rent.utils.DTO;
 
 import lombok.*;
+import zul_ipin.car_rent.model.Brand;
 
 import java.util.List;
 
@@ -11,5 +12,7 @@ import java.util.List;
 @Builder
 public class CarDTO {
     private Integer brand_id;
-    private List<CarDTO> rents;
+    private String name;
+    private Boolean available;
+    private Integer price;
 }
