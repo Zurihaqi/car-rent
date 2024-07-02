@@ -8,6 +8,6 @@ public interface BrandService {
     Brand create(Brand request);
     List<Brand> getAll();
     Brand getOne(Integer id);
-    Brand update(Brand request);
+    Brand update(Integer id, Brand request);
     void delete(Integer id);
 }

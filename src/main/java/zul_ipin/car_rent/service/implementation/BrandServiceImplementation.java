@@ -29,8 +29,8 @@ public class BrandServiceImplementation implements BrandService {
     }
 
     @Override
-    public Brand update(Brand request){
-        Brand brand = this.getOne(request.getId());
+    public Brand update(Integer id, Brand request){
+        Brand brand = this.getOne(id);
         brand.setName(request.getName());
         return brandRepository.save(brand);
     }

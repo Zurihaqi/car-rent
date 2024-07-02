@@ -28,9 +28,9 @@ public class BrandController {
         return brandService.getOne(id);
     }
 
-    @PutMapping
-    public Brand update(@RequestBody Brand request){
-        return brandService.update(request);
+    @PutMapping("/{id}")
+    public Brand update(@PathVariable Integer id, @RequestBody Brand request){
+        return brandService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
