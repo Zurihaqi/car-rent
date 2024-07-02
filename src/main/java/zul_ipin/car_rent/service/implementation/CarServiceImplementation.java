@@ -24,6 +24,7 @@ public class CarServiceImplementation implements CarService {
         car.setName(request.getName());
         car.setAvailable(true);
         car.setPrice(request.getPrice());
+        car.setBrand(brand);
 
         return carRepository.save(car);
     }
@@ -35,17 +36,18 @@ public class CarServiceImplementation implements CarService {
 
     @Override
     public Car getOne(Integer id) {
-        return carRepository.getById(id);
+        return carRepository.findById(id).orElse(null);
     }
 
     @Override
     public Car update(Integer id, CarDTO request) {
         Car car = this.getOne(id);
         car.setName(request.getName());
+        car.setBrand(brandService.getOne(request.getBrand_id()));
         car.setAvailable(request.getAvailable());
         car.setPrice(request.getPrice());
 
-        return car;
+        return carRepository.save(car);
     }
 
     @Override

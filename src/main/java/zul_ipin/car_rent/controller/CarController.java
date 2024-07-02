@@ -2,7 +2,6 @@ package zul_ipin.car_rent.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import zul_ipin.car_rent.model.Brand;
 import zul_ipin.car_rent.model.Car;
 import zul_ipin.car_rent.service.CarService;
 import zul_ipin.car_rent.utils.DTO.CarDTO;
@@ -30,7 +29,7 @@ public class CarController {
         return carService.getOne(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Car update(@PathVariable Integer id, @RequestBody CarDTO request){
         return carService.update(id, request);
     }
