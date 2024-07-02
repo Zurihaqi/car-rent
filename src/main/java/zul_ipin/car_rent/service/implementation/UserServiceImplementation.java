@@ -25,7 +25,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User getOne(Integer id) {
-        return userRepository.getById(id);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -34,11 +34,19 @@ public class UserServiceImplementation implements UserService {
         user.setName(request.getName());
         user.setBalance(request.getBalance());
 
-        return user;
+        return userRepository.save(user);
     }
 
     @Override
     public void delete(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User topUp(Integer id, User request) {
+        User user = this.getOne(id);
+        user.setBalance(user.getBalance() + request.getBalance());
+
+        return userRepository.save(user);
     }
 }

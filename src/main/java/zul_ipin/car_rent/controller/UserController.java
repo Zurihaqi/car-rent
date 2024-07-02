@@ -28,7 +28,7 @@ public class UserController {
         return userService.getOne(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public User update(@PathVariable Integer id, @RequestBody User request){
         return userService.update(id, request);
     }
@@ -36,5 +36,10 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id){
         userService.delete(id);
+    }
+
+    @PostMapping("/{id}")
+    public User topUp(@PathVariable Integer id, @RequestBody User request){
+        return userService.topUp(id, request);
     }
 }
