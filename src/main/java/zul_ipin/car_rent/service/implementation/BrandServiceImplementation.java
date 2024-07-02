@@ -1,6 +1,5 @@
 package zul_ipin.car_rent.service.implementation;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import zul_ipin.car_rent.model.Brand;
