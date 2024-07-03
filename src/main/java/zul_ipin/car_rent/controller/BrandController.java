@@ -12,8 +12,6 @@ import zul_ipin.car_rent.service.BrandService;
 import zul_ipin.car_rent.utils.PageResponWrapper;
 import zul_ipin.car_rent.utils.Res;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/brands")
 @RequiredArgsConstructor
@@ -27,9 +25,10 @@ public class BrandController {
 
     @GetMapping
     public ResponseEntity<?> getAll(
-            @PageableDefault(size = 10) Pageable pageable
+            @PageableDefault(size = 10) Pageable pageable,
+            @RequestParam(required = false) String name
     ) {
-        Page<Brand> res = brandService.getAll(pageable);
+        Page<Brand> res = brandService.getAll(pageable, name);
         PageResponWrapper<Brand> result = new PageResponWrapper<>(res);
         return Res.renderJson(
                 result,

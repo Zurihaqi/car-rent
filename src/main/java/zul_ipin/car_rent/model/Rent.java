@@ -3,6 +3,8 @@ package zul_ipin.car_rent.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -22,14 +24,17 @@ public class Rent {
     private Integer id;
     private boolean completed;
 
+    @NotNull
     @Column(name = "started_at")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startedAt;
 
+    @NotNull
     @Column(name = "ends_at")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endsAt;
 
+    @NotNull
     @Column(name = "rent_price")
     private Integer rentPrice;
 

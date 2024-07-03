@@ -39,7 +39,8 @@ public class CarServiceImplementation implements CarService {
 
     @Override
     public Car getOne(Integer id) {
-        return carRepository.findById(id).orElse(null);
+        return carRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Car with id " + id + " not found!"));
     }
 
     @Override
