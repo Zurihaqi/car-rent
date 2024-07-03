@@ -7,14 +7,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import zul_ipin.car_rent.model.Brand;
 import zul_ipin.car_rent.model.Car;
 import zul_ipin.car_rent.service.CarService;
 import zul_ipin.car_rent.utils.DTO.CarDTO;
 import zul_ipin.car_rent.utils.PageResponWrapper;
 import zul_ipin.car_rent.utils.Res;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/cars")
@@ -23,8 +20,13 @@ public class CarController {
     private final CarService carService;
 
     @PostMapping
-    public Car create(@RequestBody CarDTO request){
-        return carService.create(request);
+    public ResponseEntity<?> create(@RequestBody CarDTO request){
+        Car result = carService.create(request);
+        return Res.renderJson(
+                result,
+                "Data Has Been Created!",
+                HttpStatus.OK
+        );
     }
 
     @GetMapping
@@ -43,17 +45,32 @@ public class CarController {
     }
 
     @GetMapping("/{id}")
-    public Car getOne(@PathVariable Integer id) {
-        return carService.getOne(id);
+    public ResponseEntity<?> getOne(@PathVariable Integer id) {
+        Car result = carService.getOne(id);
+        return Res.renderJson(
+                result,
+                "Data Found!",
+                HttpStatus.OK
+        );
     }
 
     @PutMapping("/{id}")
-    public Car update(@PathVariable Integer id, @RequestBody CarDTO request){
-        return carService.update(id, request);
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody CarDTO request){
+        Car result = carService.update(id, request);
+        return Res.renderJson(
+                result,
+                "Data Has Been Updated!",
+                HttpStatus.OK
+        );
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id){
+    public ResponseEntity<?> delete(@PathVariable Integer id){
         carService.delete(id);
+        return Res.renderJson(
+                null,
+                "Data Has Been Deleted!",
+                HttpStatus.OK
+        );
     }
 }

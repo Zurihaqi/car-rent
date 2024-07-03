@@ -1,7 +1,6 @@
 package zul_ipin.car_rent.controller;
 
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.UnexpectedTypeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -66,4 +65,5 @@ public class ErrorController {
 
         return Res.renderJson(null, message, status);
     }
+
 }

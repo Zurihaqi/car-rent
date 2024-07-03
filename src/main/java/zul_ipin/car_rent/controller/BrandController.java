@@ -19,8 +19,13 @@ public class BrandController {
     private final BrandService brandService;
 
     @PostMapping
-    public Brand create(@RequestBody Brand request){
-        return brandService.create(request);
+    public ResponseEntity<?> create(@RequestBody Brand request){
+        Brand result = brandService.create(request);
+        return Res.renderJson(
+                result,
+                "Data Has Been Created!",
+                HttpStatus.OK
+        );
     }
 
     @GetMapping
@@ -38,17 +43,32 @@ public class BrandController {
     }
 
     @GetMapping("/{id}")
-    public Brand getOne(@PathVariable Integer id) {
-        return brandService.getOne(id);
+    public ResponseEntity<?> getOne(@PathVariable Integer id) {
+        Brand result = brandService.getOne(id);
+        return Res.renderJson(
+                result,
+                "Data Found!",
+                HttpStatus.OK
+        );
     }
 
     @PutMapping("/{id}")
-    public Brand update(@PathVariable Integer id, @RequestBody Brand request){
-        return brandService.update(id, request);
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Brand request){
+        Brand result = brandService.update(id, request);
+        return Res.renderJson(
+                result,
+                "Data Has Been Updated!",
+                HttpStatus.OK
+        );
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id){
+    public ResponseEntity<?> delete(@PathVariable Integer id){
         brandService.delete(id);
+        return Res.renderJson(
+                null,
+                "Data Has Been Deleted!",
+                HttpStatus.OK
+        );
     }
 }

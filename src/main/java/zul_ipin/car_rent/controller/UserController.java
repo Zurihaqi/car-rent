@@ -7,13 +7,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import zul_ipin.car_rent.model.Brand;
 import zul_ipin.car_rent.model.User;
 import zul_ipin.car_rent.service.UserService;
 import zul_ipin.car_rent.utils.PageResponWrapper;
 import zul_ipin.car_rent.utils.Res;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -22,8 +19,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public User create(@RequestBody User request){
-        return userService.create(request);
+    public ResponseEntity<?> create(@RequestBody User request){
+        User result = userService.create(request);
+        return Res.renderJson(
+                result,
+                "Data Has Been Created!",
+                HttpStatus.OK
+        );
     }
 
     @GetMapping
@@ -41,22 +43,42 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getOne(@PathVariable Integer id){
-        return userService.getOne(id);
+    public ResponseEntity<?> getOne(@PathVariable Integer id){
+        User result = userService.getOne(id);
+        return Res.renderJson(
+                result,
+                "Data Found!",
+                HttpStatus.OK
+        );
     }
 
     @PutMapping("/{id}")
-    public User update(@PathVariable Integer id, @RequestBody User request){
-        return userService.update(id, request);
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody User request){
+        User result = userService.update(id, request);
+        return Res.renderJson(
+                result,
+                "Data Has Been Updated!",
+                HttpStatus.OK
+        );
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id){
+    public ResponseEntity<?> delete(@PathVariable Integer id){
         userService.delete(id);
+        return Res.renderJson(
+                null,
+                "Data Has Been Deleted!",
+                HttpStatus.OK
+        );
     }
 
     @PostMapping("/topup/{id}")
-    public User topUp(@PathVariable Integer id, @RequestBody User request){
-        return userService.topUp(id, request);
+    public ResponseEntity<?> topUp(@PathVariable Integer id, @RequestBody User request){
+        User result = userService.topUp(id, request);
+        return Res.renderJson(
+                result,
+                "Balance Has Been Updated!",
+                HttpStatus.OK
+        );
     }
 }

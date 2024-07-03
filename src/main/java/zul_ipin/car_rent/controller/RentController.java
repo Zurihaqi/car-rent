@@ -7,14 +7,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import zul_ipin.car_rent.model.Brand;
 import zul_ipin.car_rent.model.Rent;
 import zul_ipin.car_rent.service.RentService;
 import zul_ipin.car_rent.utils.DTO.RentDTO;
 import zul_ipin.car_rent.utils.PageResponWrapper;
 import zul_ipin.car_rent.utils.Res;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/rent")
@@ -23,8 +20,13 @@ public class RentController {
     private final RentService rentService;
 
     @PostMapping
-    public Rent create(@RequestBody RentDTO request){
-        return rentService.create(request);
+    public ResponseEntity<?> create(@RequestBody RentDTO request){
+        Rent result = rentService.create(request);
+        return Res.renderJson(
+                result,
+                "Data Has Been Created!",
+                HttpStatus.OK
+        );
     }
 
     @GetMapping
@@ -41,17 +43,32 @@ public class RentController {
     }
 
     @GetMapping("/{id}")
-    public Rent getOne(@PathVariable Integer id){
-        return rentService.getOne(id);
+    public ResponseEntity<?> getOne(@PathVariable Integer id){
+        Rent result = rentService.getOne(id);
+        return Res.renderJson(
+                result,
+                "Data Found!",
+                HttpStatus.OK
+        );
     }
 
     @PutMapping("/{id}")
-    public Rent update(@PathVariable Integer id){
-        return rentService.update(id);
+    public ResponseEntity<?> update(@PathVariable Integer id){
+        Rent result = rentService.update(id);
+        return Res.renderJson(
+                result,
+                "Data Has Been Updated!",
+                HttpStatus.OK
+        );
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id){
+    public ResponseEntity<?> delete(@PathVariable Integer id){
         rentService.delete(id);
+        return Res.renderJson(
+                null,
+                "Data Has Been Deleted!",
+                HttpStatus.OK
+        );
     }
 }
