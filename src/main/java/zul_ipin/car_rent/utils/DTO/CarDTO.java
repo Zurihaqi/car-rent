@@ -1,5 +1,6 @@
 package zul_ipin.car_rent.utils.DTO;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import zul_ipin.car_rent.model.Rent;
 
@@ -9,6 +10,7 @@ import zul_ipin.car_rent.model.Rent;
 @Setter
 @Builder
 public class CarDTO {
+    @NotNull
     private Integer brand_id;
     private String name;
     private Boolean available;

@@ -25,11 +25,13 @@ public class RentServiceImplementation implements RentService {
 
     @Override
     public Rent create(RentDTO request) {
+        if(request.getUser_id() == null) throw new RuntimeException("user_id empty");
+        if(request.getCar_id() == null) throw new RuntimeException("car_id empty");
         Car car = carService.getOne(request.getCar_id());
         User user = userService.getOne(request.getUser_id());
         Rent newRent = new Rent();
 
-        if(!car.getAvailable()) return null;
+        if(!car.getAvailable()) throw new RuntimeException("Car is not available for rent!");
 
         car.setAvailable(false);
 

@@ -27,14 +27,15 @@ public class Rent {
     @NotNull
     @Column(name = "started_at")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date startedAt;
 
     @NotNull
     @Column(name = "ends_at")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date endsAt;
 
-    @NotNull
     @Column(name = "rent_price")
     private Integer rentPrice;
 

@@ -21,6 +21,7 @@ public class CarServiceImplementation implements CarService {
 
     @Override
     public Car create(CarDTO request) {
+        if(request.getBrand_id() == null) throw new RuntimeException("brand_id empty");
         Brand brand = brandService.getOne(request.getBrand_id());
         Car car = new Car();
         car.setName(request.getName());
@@ -45,6 +46,7 @@ public class CarServiceImplementation implements CarService {
 
     @Override
     public Car update(Integer id, CarDTO request) {
+        if(request.getBrand_id() == null) throw new RuntimeException("brand_id empty");
         Car car = this.getOne(id);
         car.setName(request.getName());
         car.setBrand(brandService.getOne(request.getBrand_id()));

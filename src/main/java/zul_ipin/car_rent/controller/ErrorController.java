@@ -24,6 +24,13 @@ public class ErrorController {
         if(message.contains("price") && message.contains("model.Car")){
             message = "Car price cannot be blank!";
         }
+        if(message.contains("name") && message.contains("model.User")){
+            message = "User name cannot be blank!";
+        }
+        if(message.contains("balance") && message.contains("model.User")){
+            message = "Balance cannot be blank!";
+        }
+
         return Res.renderJson(null, message, status);
     }
 
@@ -38,10 +45,25 @@ public class ErrorController {
         if(message.contains("Car with id")){
             message = "Car not found!";
         }
+        if(message.contains("startedTemp")){
+            message = "Rent started_at cannot be blank!";
+        }
+        if(message.contains("endsTemp")){
+            message = "Rent ends_at cannot be blank!";
+        }
+        if(message.contains("Car is not available")){
+            message = "Car is not available for rent!";
+        }
+        if(message.contains("user_id empty")){
+            message = "Rent user_id cannot be blank";
+        }
+        if(message.contains("car_id empty")){
+            message = "Rent car_id cannot be blank";
+        }
+        if(message.contains("brand_id empty")){
+            message = "Car brand_id cannot be blank";
+        }
 
-//        if(message.contains("given id")){
-//            message = "Car brand id cannot be blank!";
-//        }
         return Res.renderJson(null, message, status);
     }
 }
