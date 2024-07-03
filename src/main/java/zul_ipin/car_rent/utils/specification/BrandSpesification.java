@@ -1,4 +1,4 @@
-package zul_ipin.car_rent.utils.spesification;
+package zul_ipin.car_rent.utils.specification;
 
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;

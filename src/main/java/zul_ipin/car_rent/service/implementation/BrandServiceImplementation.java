@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 import zul_ipin.car_rent.model.Brand;
 import zul_ipin.car_rent.repository.BrandRepository;
 import zul_ipin.car_rent.service.BrandService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import zul_ipin.car_rent.utils.spesification.BrandSpesification;
+import zul_ipin.car_rent.utils.specification.BrandSpesification;
 
 
 @Service
