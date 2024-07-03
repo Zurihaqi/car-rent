@@ -1,12 +1,14 @@
 package zul_ipin.car_rent.service.implementation;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import zul_ipin.car_rent.model.User;
 import zul_ipin.car_rent.repository.UserRepository;
 import zul_ipin.car_rent.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import zul_ipin.car_rent.utils.specification.UserSpecification;
 
 @Service
 @RequiredArgsConstructor
@@ -19,8 +21,9 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public Page<User> getAll(Pageable pageable) {
-        return userRepository.findAll(pageable);
+    public Page<User> getAll(Pageable pageable, String name) {
+        Specification<User> spec = UserSpecification.getSpecification(name);
+        return userRepository.findAll(spec, pageable);
     }
 
     @Override

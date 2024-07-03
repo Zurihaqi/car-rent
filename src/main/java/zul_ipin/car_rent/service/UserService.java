@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface UserService {
     User create(User request);
-    Page<User> getAll(Pageable pageable);
+    Page<User> getAll(Pageable pageable, String name);
     User getOne(Integer id);
     User update(Integer id, User request);
     void delete(Integer id);

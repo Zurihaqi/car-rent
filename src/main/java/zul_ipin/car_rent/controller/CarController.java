@@ -29,9 +29,11 @@ public class CarController {
 
     @GetMapping
     public ResponseEntity<?> getAll(
-            @PageableDefault(size = 10) Pageable pageable
+            @PageableDefault(size = 10) Pageable pageable,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Boolean available
     ) {
-        Page<Car> res = carService.getAll(pageable);
+        Page<Car> res = carService.getAll(pageable, name, available);
         PageResponWrapper<Car> result = new PageResponWrapper<>(res);
         return Res.renderJson(
                 result,

@@ -1,6 +1,7 @@
 package zul_ipin.car_rent.service.implementation;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import zul_ipin.car_rent.model.Brand;
 import zul_ipin.car_rent.model.Car;
@@ -10,6 +11,7 @@ import zul_ipin.car_rent.service.CarService;
 import zul_ipin.car_rent.utils.DTO.CarDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import zul_ipin.car_rent.utils.specification.CarSpecification;
 
 @Service
 @RequiredArgsConstructor
@@ -30,8 +32,9 @@ public class CarServiceImplementation implements CarService {
     }
 
     @Override
-    public Page<Car> getAll(Pageable pageable) {
-        return carRepository.findAll(pageable);
+    public Page<Car> getAll(Pageable pageable, String name, Boolean available) {
+        Specification<Car> spec = CarSpecification.getSpecification(name, available);
+        return carRepository.findAll(spec, pageable);
     }
 
     @Override
