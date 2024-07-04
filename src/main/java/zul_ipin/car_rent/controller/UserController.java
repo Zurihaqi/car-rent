@@ -7,20 +7,20 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import zul_ipin.car_rent.model.Brand;
-import zul_ipin.car_rent.service.BrandService;
+import zul_ipin.car_rent.model.User;
+import zul_ipin.car_rent.service.UserService;
 import zul_ipin.car_rent.utils.PageResponWrapper;
 import zul_ipin.car_rent.utils.Res;
 
 @RestController
-@RequestMapping("/brands")
+@RequestMapping("/user")
 @RequiredArgsConstructor
-public class BrandController {
-    private final BrandService brandService;
+public class UserController {
+    private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Brand request){
-        Brand result = brandService.create(request);
+    public ResponseEntity<?> create(@RequestBody User request){
+        User result = userService.create(request);
         return Res.renderJson(
                 result,
                 "Data Has Been Created!",
@@ -33,8 +33,8 @@ public class BrandController {
             @PageableDefault(size = 10) Pageable pageable,
             @RequestParam(required = false) String name
     ) {
-        Page<Brand> res = brandService.getAll(pageable, name);
-        PageResponWrapper<Brand> result = new PageResponWrapper<>(res);
+        Page<User> res = userService.getAll(pageable, name);
+        PageResponWrapper<User> result = new PageResponWrapper<>(res);
         return Res.renderJson(
                 result,
                 result.getTotalElements() == 0 ? "Data Empty!" : "Data Found!",
@@ -43,8 +43,8 @@ public class BrandController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable Integer id) {
-        Brand result = brandService.getOne(id);
+    public ResponseEntity<?> getOne(@PathVariable Integer id){
+        User result = userService.getOne(id);
         return Res.renderJson(
                 result,
                 "Data Found!",
@@ -53,8 +53,8 @@ public class BrandController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Brand request){
-        Brand result = brandService.update(id, request);
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody User request){
+        User result = userService.update(id, request);
         return Res.renderJson(
                 result,
                 "Data Has Been Updated!",
@@ -64,10 +64,20 @@ public class BrandController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id){
-        brandService.delete(id);
+        userService.delete(id);
         return Res.renderJson(
                 null,
                 "Data Has Been Deleted!",
+                HttpStatus.OK
+        );
+    }
+
+    @PostMapping("/topup/{id}")
+    public ResponseEntity<?> topUp(@PathVariable Integer id, @RequestBody User request){
+        User result = userService.topUp(id, request);
+        return Res.renderJson(
+                result,
+                "Balance Has Been Updated!",
                 HttpStatus.OK
         );
     }

@@ -1,6 +1,7 @@
 package zul_ipin.car_rent.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -14,7 +15,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull
     private String name;
-    private String balance;
-
+    @NotNull
+    private Integer balance;
 }
