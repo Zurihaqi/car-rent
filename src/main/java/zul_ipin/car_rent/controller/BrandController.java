@@ -37,7 +37,7 @@ public class BrandController {
         PageResponWrapper<Brand> result = new PageResponWrapper<>(res);
         return Res.renderJson(
                 result,
-                "Data Found!",
+                result.getTotalElements() == 0 ? "Data Empty!" : "Data Found!",
                 HttpStatus.OK
         );
     }
