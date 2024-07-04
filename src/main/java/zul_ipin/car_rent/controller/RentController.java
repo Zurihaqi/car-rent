@@ -7,20 +7,21 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import zul_ipin.car_rent.model.Brand;
-import zul_ipin.car_rent.service.BrandService;
+import zul_ipin.car_rent.model.Rent;
+import zul_ipin.car_rent.service.RentService;
+import zul_ipin.car_rent.utils.DTO.RentDTO;
 import zul_ipin.car_rent.utils.PageResponWrapper;
 import zul_ipin.car_rent.utils.Res;
 
 @RestController
-@RequestMapping("/brands")
+@RequestMapping("/rent")
 @RequiredArgsConstructor
-public class BrandController {
-    private final BrandService brandService;
+public class RentController {
+    private final RentService rentService;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Brand request){
-        Brand result = brandService.create(request);
+    public ResponseEntity<?> create(@RequestBody RentDTO request){
+        Rent result = rentService.create(request);
         return Res.renderJson(
                 result,
                 "Data Has Been Created!",
@@ -30,11 +31,10 @@ public class BrandController {
 
     @GetMapping
     public ResponseEntity<?> getAll(
-            @PageableDefault(size = 10) Pageable pageable,
-            @RequestParam(required = false) String name
+            @PageableDefault(size = 10) Pageable pageable
     ) {
-        Page<Brand> res = brandService.getAll(pageable, name);
-        PageResponWrapper<Brand> result = new PageResponWrapper<>(res);
+        Page<Rent> res = rentService.getAll(pageable);
+        PageResponWrapper<Rent> result = new PageResponWrapper<>(res);
         return Res.renderJson(
                 result,
                 result.getTotalElements() == 0 ? "Data Empty!" : "Data Found!",
@@ -43,8 +43,8 @@ public class BrandController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOne(@PathVariable Integer id) {
-        Brand result = brandService.getOne(id);
+    public ResponseEntity<?> getOne(@PathVariable Integer id){
+        Rent result = rentService.getOne(id);
         return Res.renderJson(
                 result,
                 "Data Found!",
@@ -53,8 +53,8 @@ public class BrandController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Brand request){
-        Brand result = brandService.update(id, request);
+    public ResponseEntity<?> update(@PathVariable Integer id){
+        Rent result = rentService.update(id);
         return Res.renderJson(
                 result,
                 "Data Has Been Updated!",
@@ -64,7 +64,7 @@ public class BrandController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id){
-        brandService.delete(id);
+        rentService.delete(id);
         return Res.renderJson(
                 null,
                 "Data Has Been Deleted!",
