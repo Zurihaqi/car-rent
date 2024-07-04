@@ -44,6 +44,12 @@ public class ErrorController {
         if(message.contains("Car with id")){
             message = "Car not found!";
         }
+        if(message.contains("Rent with id")){
+            message = "Rent not found!";
+        }
+        if(message.contains("User with id")){
+            message = "User not found!";
+        }
         if(message.contains("startedTemp")){
             message = "Rent started_at cannot be blank!";
         }

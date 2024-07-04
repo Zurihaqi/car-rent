@@ -62,39 +62,50 @@ public class RentServiceImplementation implements RentService {
 
     @Override
     public Rent getOne(Integer id) {
-        return rentRepository.findById(id).orElse(null);
+        return rentRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Rent with id " + id + " not found!"));
     }
 
     @Override
     public Rent update(Integer id) {
-        Rent rent = rentRepository.findById(id).orElse(null);
-        assert rent != null;
-        User user = userService.getOne(rent.getUser().getId());
-        Car car = carService.getOne(rent.getCar().getId());
-
-        Date endsTemp = rent.getEndsAt();
-        Date completeDate = new Date();
-        long diff = endsTemp.getTime() - completeDate.getTime();
-        long daysDifference = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        int rentPrice = (int) (car.getPrice() * daysDifference);
-
-        // Jika lewat batas akhir denda 10% dari harga rental
-        if(daysDifference < 0){
-            rentPrice += rentPrice * 10 / 100;
+        if(rentRepository.findById(id).isEmpty()){
+            throw new RuntimeException("Rent with id " + id + " not found!");
         }
+        else {
+            Rent rent = rentRepository.findById(id).orElse(null);
+            assert rent != null;
+            User user = userService.getOne(rent.getUser().getId());
+            Car car = carService.getOne(rent.getCar().getId());
 
-        user.setBalance(user.getBalance() - rentPrice / 2);
-        car.setAvailable(true);
-        rent.setCompleted(true);
+            Date endsTemp = rent.getEndsAt();
+            Date completeDate = new Date();
+            long diff = endsTemp.getTime() - completeDate.getTime();
+            long daysDifference = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            int rentPrice = (int) (car.getPrice() * daysDifference);
 
-        return rentRepository.save(rent);
+            // Jika lewat batas akhir denda 10% dari harga rental
+            if (daysDifference < 0) {
+                rentPrice += rentPrice * 10 / 100;
+            }
+
+            user.setBalance(user.getBalance() - rentPrice / 2);
+            car.setAvailable(true);
+            rent.setCompleted(true);
+
+            return rentRepository.save(rent);
+        }
     }
 
     @Override
     public void delete(Integer id) {
-        Rent temp = rentRepository.getById(id);
-        Car car = carService.getOne(temp.getCar().getId());
-        car.setAvailable(true);
-        rentRepository.deleteById(id);
+        if(rentRepository.findById(id).isEmpty()) {
+            throw new RuntimeException("Rent with id " + id + " not found!");
+        }
+        else {
+            Rent temp = rentRepository.getById(id);
+            Car car = carService.getOne(temp.getCar().getId());
+            car.setAvailable(true);
+            rentRepository.deleteById(id);
+        }
     }
 }

@@ -35,13 +35,23 @@ public class BrandServiceImplementation implements BrandService {
 
     @Override
     public Brand update(Integer id, Brand request){
-        Brand brand = this.getOne(id);
-        brand.setName(request.getName());
-        return brandRepository.save(brand);
+        if(brandRepository.findById(id).isEmpty()) {
+            throw new RuntimeException("Brand with id " + id + " not found!");
+        }
+        else {
+            Brand brand = this.getOne(id);
+            brand.setName(request.getName());
+            return brandRepository.save(brand);
+        }
     }
 
     @Override
     public void delete(Integer id){
-        brandRepository.deleteById(id);
+        if(brandRepository.findById(id).isEmpty()) {
+            throw new RuntimeException("Brand with id " + id + " not found!");
+        }
+        else{
+            brandRepository.deleteById(id);
+        }
     }
 }

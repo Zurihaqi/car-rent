@@ -47,17 +47,27 @@ public class CarServiceImplementation implements CarService {
     @Override
     public Car update(Integer id, CarDTO request) {
         if(request.getBrand_id() == null) throw new RuntimeException("brand_id empty");
-        Car car = this.getOne(id);
-        car.setName(request.getName());
-        car.setBrand(brandService.getOne(request.getBrand_id()));
-        car.setAvailable(request.getAvailable());
-        car.setPrice(request.getPrice());
+        if(carRepository.findById(id).isEmpty()){
+            throw new RuntimeException("Car with id " + id + " not found!");
+        }
+        else {
+            Car car = this.getOne(id);
+            car.setName(request.getName());
+            car.setBrand(brandService.getOne(request.getBrand_id()));
+            car.setAvailable(request.getAvailable());
+            car.setPrice(request.getPrice());
 
-        return carRepository.save(car);
+            return carRepository.save(car);
+        }
     }
 
     @Override
     public void delete(Integer id) {
-        carRepository.deleteById(id);
+        if(carRepository.findById(id).isEmpty()) {
+            throw new RuntimeException("Car with id " + id + " not found!");
+        }
+        else{
+            carRepository.deleteById(id);
+        }
     }
 }

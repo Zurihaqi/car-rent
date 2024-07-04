@@ -28,28 +28,42 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User getOne(Integer id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("User with id " + id + " not found!"));
     }
 
     @Override
     public User update(Integer id, User request) {
-        User user = this.getOne(id);
-        user.setName(request.getName());
-        user.setBalance(request.getBalance());
+        if(userRepository.findById(id).isEmpty()){
+            throw new RuntimeException("Car with id " + id + " not found!");
+        }
+        else {
+            User user = this.getOne(id);
+            user.setName(request.getName());
+            user.setBalance(request.getBalance());
 
-        return userRepository.save(user);
+            return userRepository.save(user);
+        }
     }
 
     @Override
     public void delete(Integer id) {
-        userRepository.deleteById(id);
+        if(userRepository.findById(id).isEmpty()) {
+            throw new RuntimeException("User with id " + id + " not found!");
+        }
+        else{
+            userRepository.deleteById(id);
+        }
     }
 
     @Override
     public User topUp(Integer id, User request) {
-        User user = this.getOne(id);
-        user.setBalance(user.getBalance() + request.getBalance());
-
-        return userRepository.save(user);
+        if (userRepository.findById(id).isEmpty()) {
+            throw new RuntimeException("User with id " + id + " not found!");
+        } else {
+            User user = this.getOne(id);
+            user.setBalance(user.getBalance() + request.getBalance());
+            return userRepository.save(user);
+        }
     }
 }
