@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import zul_ipin.car_rent.utils.Res;
 
+import java.sql.SQLException;
+
 @RestControllerAdvice
 public class ErrorController {
     @ExceptionHandler(ConstraintViolationException.class)
@@ -68,8 +70,16 @@ public class ErrorController {
         if(message.contains("brand_id empty")){
             message = "Car brand_id cannot be blank";
         }
+        if(message.contains("delete from cars") && message.contains("foreign key constraint")){
+            message = "Car cannot be deleted (FK constraint)";
+        }
+        if(message.contains("delete from brands") && message.contains("foreign key constraint")){
+            message = "Brand cannot be deleted (FK constraint)";
+        }
+        if(message.contains("delete from users") && message.contains("foreign key constraint")){
+            message = "User cannot be deleted (FK constraint)";
+        }
 
         return Res.renderJson(null, message, status);
     }
-
 }
